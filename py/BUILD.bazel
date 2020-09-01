@@ -1,0 +1,33 @@
+load("debug.bzl", "py_wrapper_library", "debug")
+
+py_library(
+    name = "lib",
+    srcs = ["lib.py"],
+)
+debug(
+    name = "dbg-lib",
+    target = ":lib",
+)
+
+alias(
+    name = "alias",
+    actual = ":lib",
+)
+debug(
+    name = "dbg-alias",
+    target = ":alias",
+)
+
+py_wrapper_library(
+    name = "wrapped-lib",
+    target = ":lib",
+)
+alias(
+    name = "wrapped-alias",
+    actual = ":wrapped-lib",
+)
+debug(
+    name = "dbg-wrapped-alias",
+    target = ":wrapped-alias",
+)
+
