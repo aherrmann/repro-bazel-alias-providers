@@ -1,4 +1,5 @@
 def _cc_wrapped_library(ctx):
+    print(str(ctx.label) + ": Wrapping " + str(ctx.attr.target.label))
     target = ctx.attr.target
     return [target[DefaultInfo], target[CcInfo]]
 
@@ -8,9 +9,11 @@ cc_wrapper_library = rule(
 )
 
 def _debug_impl(ctx):
-    print(ctx.attr.target)
-    if CcInfo in ctx.attr.target:
-        print(ctx.attr.target[CcInfo])
+    print(
+        str(ctx.label) +
+        ": Debugging " +
+        str(ctx.attr.target) +
+        (" has CcInfo" if CcInfo in ctx.attr.target else " no CcInfo"))
 
 debug = rule(
     _debug_impl,
